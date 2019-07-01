@@ -27,12 +27,6 @@
       "required_resource": "blog:posts:1",
       "flavor": "exact"
     }
-  },
-  "credentials_issuer": {
-    "handler": "id_token",
-    "config": {
-      "aud": []
-    }
   }
 }
 ]
