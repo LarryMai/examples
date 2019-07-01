@@ -1,11 +1,11 @@
 [
 {
-  "id": "${OATHKEEPER_RESOURCE_PREFIX}rules:resource-server-oathkeeper",
+  "id": "rules:resource-server-oathkeeper",
   "upstream": {
-    "url": "${RESOURCE_SERVER_URL}/"
+    "url": "http://127.0.0.1:4478/"
   },
   "match": {
-    "url": "${OATHKEEPER_PROXY_URL}/oathkeeper",
+    "url": "http://127.0.0.1:4455/oathkeeper",
     "methods": [
       "GET"
     ]
