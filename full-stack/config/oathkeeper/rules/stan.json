@@ -1,0 +1,28 @@
+[
+    {
+      "id": "2resources:oathkeeper:rules:resource-server-oathkeeper",
+      "upstream": {
+        "url": "https://tw.yahoo.com/"
+      },
+      "match": {
+        "url": "http://<[^:]+>:4455/oathkeeper",
+        "methods": [
+          "GET"
+        ]
+      },
+      "authenticators": [
+        {"handler": "anonymous"}
+      ],
+      "authorizer": {
+        "handler": "allow"
+      },
+      "credentials_issuer": {
+        "handler": "id_token",
+            "config":{
+                "aud" : [ "example-auth-code","consumer-app"]
+            }
+      }
+    }
+]
+      
+    

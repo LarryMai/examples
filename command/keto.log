@@ -1,0 +1,40 @@
+1. 
+docker exec c0ce keto engines acp ory policies  list exact --endpoint http://127.0.0.1:4466
+
+2. 
+ docker exec c0ce keto engines  acp ory roles list exact --endpoint http://127.0.0.1:4466
+
+3. 
+foo@bar.com"
+
+engines acp ory allowed exact bob blog_posts:my-first-blog-post delete
+
+  keto engines acp ory allowed <flavor> <subject> <resource> <action> [flags]
+ docker exec a500 keto engines acp ory allowed \
+ exact user blog:posts:1 blog:read 
+
+failed:
+ docker exec a500 keto engines acp ory allowed exact blob blog:posts:1 blog:read  --endpoint http://127.0.0.0.1:4466
+
+
+REST FUL API
+1. curl -XPOST -H "Content-Type: application/json" -H "Accept: application/json"  http://127.0.0.1:4466/engines/acp/ory/exact/allowed -d '{ "action" : "get", "subject": "user",  "resource" : "/home" }'
+
+{"allowed":true}
+
+2. curl http://127.0.0.1:4466/engines/acp/ory/exact/roles
+[{"id":"admin","members":["foo@bar.com","bar@foo.com"]},{"id":"user","members":["a@a.com","b@b.com"]}]
+
+3. curl http://127.0.0.1:4466/engines/acp/ory/exact/policies
+[{"id":"resources:keto:policies:foobar-blog","description":"This is another example policy which works together with the example consumer and resource server app.","subjects":["foo@bar.com"],"resources":["blog:posts:1"],"actions":["blog:read"],"effect":"allow","conditions":null},{"id":"resources:keto:policies:peter-blog","description":"This is another example policy which works together with the example consumer and resource server app.","subjects":["peter"],"resources":["blog:posts:2"],"actions":["blog:read"],"effect":"allow","conditions":null},{"id":"resources:keto:policies:policy:by:role:admin","description":"This is another example policy which works together with the example consumer and resource server app.","subjects":["admin"],"resources":["/","/home","/charts"],"actions":["get","post","put","delete"],"effect":"allow","conditions":null},{"id":"resources:keto:policies:policy:by:role:user","description":"This is another example policy which works together with the example consumer and resource server app.","subjects":["user"],"resources":["/","/home"],"actions":["get"],"effect":"allow","conditions":null}]
+
+4. curl -H "Content-Type: application/json" -H "Accept: application/json" -XPUT http://127.0.0.1:4466/engines/acp/ory/exact/policies -d '{ "actions" : ["op1", "op2"], "id":"resources:keto:policies:my-test-operations", "effect" :"allow", "condtions":null , "subjects":[ "Larry", "Jacky", "Stan" ], "resources" : ["ggyy"] }'
+{"id":"resources:keto:policies:my-test-operations","description":"","subjects":["Larry","Jacky","Stan"],"resources":["ggyy"],"actions":["op1","op2"],"effect":"allow","conditions":null}
+
+
+5. Upsert an ORY Access Control Policy Role
+Content-Type: application/json
+Accept: application/json
+curl -H "Content-Type: application/json" -H "Accept: application/json" -XPUT http://127.0.0.1:4466/engines/acp/ory/exact/roles -d '{  "id": "Gods",  "members": ["Larry", "Stan", "Jacky"] }'
+
+6. curl -H "Content-Type: application/json" -H "Accept: application/json" -XPUT http://127.0.0.1:4466/engines/acp/ory/exact/roles/Gods/members -d '{ "members" : ["Aslan", "William","Ray"] }'

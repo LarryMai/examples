@@ -3,6 +3,8 @@
 set -euo pipefail
 
 url=$1
+
+echo "import url : ${url} ********************************  "
 path=$2
 rule_path="$path/rules/*.json"
 

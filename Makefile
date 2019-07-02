@@ -5,10 +5,17 @@ ENV_BROWSER_HYDRA_HOST ?= localhost
 ENV_BROWSER_CONSUMER_HOST ?= localhost
 ENV_BROWSER_IDP_HOST ?= localhost
 ENV_BROWSER_OATHKEEPER_PROXY_HOST ?= localhost
+ENV_RESOURCE_SERVER_HOST ?= localhost
+ENV_KETO_SERVER_HOST ?=localhost
 
 ENV_HYDRA_VERSION ?= v1.0.0-rc.5_oryOS.10
-ENV_KETO_VERSION ?= v0.2.2-sandbox_oryOS.10
+ENV_KETO_VERSION ?=  latest
+                     #v0.3.3-sandbox
+                     #v0.2.2-sandbox_oryOS.10
 ENV_OATHKEEPER_VESRION ?= v0.14.2_oryOS.10
+                             #v0.15.2
+							 #v0.16.0-beta.4
+							 #v0.14.2_oryOS.10
 ENV_LOGIN_CONSENT_VERSION ?= v1.0.0-rc.5
 
 all:
@@ -28,6 +35,8 @@ export BROWSER_HYDRA_HOST=${ENV_BROWSER_HYDRA_HOST}
 export BROWSER_CONSUMER_HOST=${ENV_BROWSER_CONSUMER_HOST}
 export BROWSER_IDP_HOST=${ENV_BROWSER_IDP_HOST}
 export BROWSER_OATHKEEPER_PROXY_HOST=${ENV_BROWSER_OATHKEEPER_PROXY_HOST}
+export BROWSER_RESOURCE_HOST=${ENV_RESOURCE_SERVER_HOST}
+export BROWSER_KETO_HOST=${ENV_KETO_SERVER_HOST}
 
 build-dev:
 		docker build -t oryd/hydra:dev ${GOPATH}/src/github.com/ory/hydra/
