@@ -1,0 +1,30 @@
+[
+    {
+        "id": "test",
+        "description":"jwt success",
+        "upstream": {
+          "url": "https://tw.yahoo.com/"
+        },
+        "match": {
+          "url": "http://<[^/]+>/oathkeeper",
+          "methods": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "PATCH"
+          ]
+        },
+        "authenticators": [
+          {
+            "handler": "jwt"
+          }
+        ],
+        "authorizer": {
+          "handler": "allow"
+        },
+        "credentials_issuer": {
+          "handler": "noop"
+        }
+      }
+]

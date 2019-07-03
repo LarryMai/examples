@@ -1,0 +1,39 @@
+[
+    {
+        "id": "test",
+        "description":"failed since target_audience",
+        "upstream": {
+          "url": "https://tw.yahoo.com/"
+        },
+        "match": {
+          "url": "http://<[^/]+>/oathkeeper",
+          "methods": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "PATCH"
+          ]
+        },
+        "authenticators": [
+          {
+            "handler": "jwt",
+            "config": {
+              "required_scope": [
+                "offline",
+                "openid",
+                "articles.read"
+              ],
+              "trusted_issuers":["http://localhost:4444/"],
+              "target_audience":["consumer-app"]
+            }
+          }
+        ],
+        "authorizer": {
+          "handler": "allow"
+        },
+        "credentials_issuer": {
+          "handler": "noop"
+        }
+      }
+]

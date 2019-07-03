@@ -1,0 +1,44 @@
+[
+    {
+        "id": "access_token_test1",
+        "upstream": {
+          "url": "https://tw.yahoo.com/"
+        },
+        "match": {
+          "url": "http://<[^/]+>/oathkeeper",
+          "methods": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "PATCH"
+          ]
+        },
+        "authenticators": [
+          {
+            "handler": "oauth2_introspection",
+            "config": {
+              "required_scope": [
+                "offline",
+                "openid",
+                "articles.read"
+              ]
+            }
+          }
+        ],
+        "authorizer": {
+            "handler": "keto_engine_acp_ory",
+            "config": {
+              "required_action": "blog:read",
+              "required_resource": "blog:posts:1",
+              "flavor": "exact"
+            }
+        },
+        "credentials_issuer": {
+          "handler": "id_token",
+          "config":{
+              "aud" : [ "example-auth-code","consumer-app"]
+          }
+        }
+      }
+]

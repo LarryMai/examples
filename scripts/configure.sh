@@ -21,7 +21,6 @@ if [ -d "/config/oathkeeper/rules/" ]; then
 fi
 
 echo "Executing bootstrap scripts..."
-
 hydra_url=${HYDRA_URL:=undefined}
 hydra_admin_url=${HYDRA_ADMIN_URL:=undefined}
 oathkeeper_url=${OATHKEEPER_API_URL:=undefined}

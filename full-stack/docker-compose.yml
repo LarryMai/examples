@@ -53,6 +53,7 @@ services:
     networks:
       - intranet
     environment:
+      - OAUTH2_ACCESS_TOKEN_STRATEGY=jwt
       - CORS_ENABLED=true
       - CORS_ALLOWED_METHODS=POST,GET,PUT,DELETE
       - LOG_LEVEL=debug
@@ -93,6 +94,8 @@ services:
       - AUTHENTICATOR_ANONYMOUS_USERNAME=anonymous
       - AUTHENTICATOR_OAUTH2_INTROSPECTION_URL=http://hydra:4445/oauth2/introspect
       - AUTHENTICATOR_OAUTH2_CLIENT_CREDENTIALS_TOKEN_URL=http://hydra:4444/oauth2/token
+      - AUTHENTICATOR_JWT_JWKS_URL=http://hydra:44445/.well-known/jwks.json
+      #- AUTHENTICATOR_JWT_SCOPE_STRATEGY=NONE
     restart: on-failure
 
   oathkeeper-api:
@@ -123,6 +126,8 @@ services:
       - CREDENTIALS_ISSUER_ID_TOKEN_JWK_REFRESH_INTERVAL=30m
       - AUTHENTICATOR_OAUTH2_INTROSPECTION_URL=http://hydra:4445/oauth2/introspect
       - AUTHENTICATOR_OAUTH2_CLIENT_CREDENTIALS_TOKEN_URL=http://hydra:4444/oauth2/token
+      - AUTHENTICATOR_JWT_JWKS_URL=http://hydra:44445/.well-known/jwks.json
+      #- AUTHENTICATOR_JWT_SCOPE_STRATEGY=NONE
     restart: on-failure
 
   keto:
@@ -134,12 +139,16 @@ services:
     depends_on:
       - hydra
       - keto-migrate
+    command :
+      serve
     networks:
       - intranet
     environment:
       - CORS_ENABLED=true
       - CORS_ALLOWED_METHODS=POST,GET,PUT,DELETE
+      - PORT=4466
       - LOG_LEVEL=debug
+      # - DATABASE_URL=postgres://dbuser:secret@postgresd:5432/accesscontroldb?sslmode=disable
       - DATABASE_URL=postgres://dbuser:secret@postgresd:5432/accesscontroldb?sslmode=disable
     restart: on-failure
 
